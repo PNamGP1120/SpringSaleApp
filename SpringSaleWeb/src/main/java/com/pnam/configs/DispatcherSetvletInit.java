@@ -4,6 +4,8 @@
  */
 package com.pnam.configs;
 
+import jakarta.servlet.MultipartConfigElement;
+import jakarta.servlet.ServletRegistration;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 /**
@@ -16,7 +18,8 @@ public class DispatcherSetvletInit extends AbstractAnnotationConfigDispatcherSer
     protected Class<?>[] getRootConfigClasses() {
         return new Class[] {
             ThymeleafConfig.class,
-            HibernateConfig.class
+            HibernateConfig.class,
+            SpringSecurityConfigs.class
         };
     }
 
@@ -31,5 +34,17 @@ public class DispatcherSetvletInit extends AbstractAnnotationConfigDispatcherSer
     protected String[] getServletMappings() {
         return new String[] {"/"};
     }
+
+    @Override
+    protected void customizeRegistration(ServletRegistration.Dynamic registration) {
+        String location = "/tmp";
+        long maxFileSize = 5242880;
+        long maxRequestSize = 20971520;
+        int fileInitThreshold = 0;
+        
+        registration.setMultipartConfig(new MultipartConfigElement(location, maxFileSize, maxRequestSize, fileInitThreshold));
+    }
+    
+    
     
 }

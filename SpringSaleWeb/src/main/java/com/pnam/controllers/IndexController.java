@@ -4,12 +4,14 @@
  */
 package com.pnam.controllers;
 
-import com.pnam.repositories.impl.CategoryRepositoryImpl;
-import com.pnam.repositories.impl.ProductRepositoryImpl;
+import com.pnam.services.CategoryServices;
+import com.pnam.services.ProductServices;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -18,17 +20,22 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author pnam
  */
 @Controller
+@ControllerAdvice
 public class IndexController {
+
     @Autowired
-    private CategoryRepositoryImpl cate;
+    private CategoryServices cate;
     @Autowired
-    private ProductRepositoryImpl prodRepo;
-    
+    private ProductServices prodRepo;
+
+    @ModelAttribute
+    public void commonResponse(Model model) {
+        model.addAttribute("categories", this.cate.getCates());
+    }
+
     @RequestMapping("/")
-    public String index(Model model, @RequestParam Map<String, String> params){
-//        cate.getCates().forEach(action->System.out.println(action.getName()));
-        model.addAttribute("categories", cate.getCates());
-        model.addAttribute("products", prodRepo.getProducts(params));
+    public String index(Model model, @RequestParam Map<String, String> params) {
+        model.addAttribute("products", this.prodRepo.getProducts(params));
         return "index";
     }
 }

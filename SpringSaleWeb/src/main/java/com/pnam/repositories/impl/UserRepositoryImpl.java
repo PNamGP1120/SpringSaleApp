@@ -4,10 +4,9 @@
  */
 package com.pnam.repositories.impl;
 
-import com.pnam.pojo.Category;
-import com.pnam.repositories.CategoryRepository;
+import com.pnam.pojo.User;
+import com.pnam.repositories.UserRepositiry;
 import jakarta.persistence.Query;
-import java.util.List;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
@@ -20,21 +19,17 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository
 @Transactional
-public class CategoryRepositoryImpl implements CategoryRepository {
+public class UserRepositoryImpl implements UserRepositiry {
 
     @Autowired
     private LocalSessionFactoryBean factory;
 
     @Override
-    public List<Category> getCates() {
+    public User getUserByUsername(String username) {
         Session s = this.factory.getObject().getCurrentSession();
-        Query q = s.createQuery("FROM Category", Category.class);
-        return q.getResultList();
+        Query q = s.createNamedQuery("User.findByUsername", User.class);
+        q.setParameter("username", username);
+        return (User) q.getSingleResult();
     }
 
-    @Override
-    public Category getCateById(int id) {
-        Session s = this.factory.getObject().getCurrentSession();
-        return s.find(Category.class, id);
-    }
 }
