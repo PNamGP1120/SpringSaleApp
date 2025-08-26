@@ -8,6 +8,8 @@
     </th:object>
     </head>
     <body>
+        <p th:text="'Số category: ' + ${#lists.size(categories)}"></p>
+
         <nav th:fragment="menu" class="navbar navbar-expand-sm bg-dark navbar-dark">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">Logo</a>
@@ -19,6 +21,8 @@
                         <li class="nav-item">
                             <a class="nav-link" th:href="@{/}">Trang chu</a>
                         </li>
+                        <p th:text="'Số category: ' + ${#lists.size(categories)}"></p>
+
 
                         <li class="nav-item" th:each="c : ${categories}" sec:authorize="isAuthenticated()">
                             <a class="nav-link" th:href="@{/} + '?cateId=' + ${c.id}" th:text="${c.name}">Link</a>
@@ -37,7 +41,7 @@
             </div>
         </nav>
 
-
+        
 
         <footer th:fragment="footer">
             <div class="mt-4 p-5 bg-primary text-white rounded">

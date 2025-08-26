@@ -2,7 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>Home Page</title>
-        <th:object th:replace="base :: bt"></head>
+    <th:object th:replace="base :: bt">
+    </head>
     <body>
         <div th:replace="base :: menu"></div>
 
@@ -23,9 +24,9 @@
 
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
-                    
+
             </form> 
-            
+
             <div class="mt-2 mb-2">
                 <a th:href="@{/products}" class="btn btn-info">
                     Them san pham
@@ -62,8 +63,8 @@
 
         <div th:replace="base :: footer"></div>
         <script th:src = "@{/js/main.js}">
-            
+
         </script>
-            
+
     </body>
 </html>

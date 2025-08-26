@@ -44,7 +44,4 @@ public class DispatcherSetvletInit extends AbstractAnnotationConfigDispatcherSer
         
         registration.setMultipartConfig(new MultipartConfigElement(location, maxFileSize, maxRequestSize, fileInitThreshold));
     }
-    
-    
-    
 }
